@@ -1,5 +1,13 @@
 // Helper functions for the checkout process
 
+// Safe localStorage access
+const getLocalStorage = () => {
+  if (typeof window !== 'undefined') {
+    return window.localStorage;
+  }
+  return null;
+};
+
 // Add a room reservation to localStorage for checkout
 export function addRoomToCheckout(room: {
   id: string;
@@ -8,6 +16,9 @@ export function addRoomToCheckout(room: {
   image: string;
   duration: number;
 }) {
+  const localStorage = getLocalStorage();
+  if (!localStorage) return;
+  
   // Clear any previous checkout items
   localStorage.removeItem("checkout_items");
   
@@ -31,6 +42,9 @@ export function addClassToCheckout(classEvent: {
   price: number;
   image: string;
 }) {
+  const localStorage = getLocalStorage();
+  if (!localStorage) return;
+  
   // Clear any previous checkout items
   localStorage.removeItem("checkout_items");
   
@@ -49,7 +63,8 @@ export function addClassToCheckout(classEvent: {
 
 // Get checkout items
 export function getCheckoutItems() {
-  if (typeof window === "undefined") return [];
+  const localStorage = getLocalStorage();
+  if (!localStorage) return [];
   
   const items = localStorage.getItem("checkout_items");
   if (!items) return [];
@@ -64,6 +79,8 @@ export function getCheckoutItems() {
 
 // Clear checkout items
 export function clearCheckoutItems() {
-  if (typeof window === "undefined") return;
+  const localStorage = getLocalStorage();
+  if (!localStorage) return;
+  
   localStorage.removeItem("checkout_items");
 } 

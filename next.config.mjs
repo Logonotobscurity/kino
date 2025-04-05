@@ -55,6 +55,10 @@ const nextConfig = {
   distDir: 'out',
   skipMiddlewareUrlNormalize: true,
   skipTrailingSlashRedirect: true,
+  // Exclude middleware completely in production
+  env: {
+    NEXT_DISABLE_MIDDLEWARE: process.env.NODE_ENV === 'production' ? 'true' : 'false',
+  },
 }
 
 if (userConfig) {

@@ -23,6 +23,9 @@ export function MotionBackground({ particleCount = 50, colorVariant = "pink" }: 
   const animationRef = useRef<number>(0)
 
   useEffect(() => {
+    // Check for browser environment
+    if (typeof window === 'undefined') return;
+    
     const canvas = canvasRef.current
     if (!canvas) return
 
@@ -31,6 +34,7 @@ export function MotionBackground({ particleCount = 50, colorVariant = "pink" }: 
 
     // Set canvas to full window size
     const handleResize = () => {
+      if (typeof window === 'undefined') return;
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
     }
@@ -96,8 +100,10 @@ export function MotionBackground({ particleCount = 50, colorVariant = "pink" }: 
 
     // Cleanup
     return () => {
-      window.removeEventListener("resize", handleResize)
-      cancelAnimationFrame(animationRef.current)
+      if (typeof window !== 'undefined') {
+        window.removeEventListener("resize", handleResize)
+        cancelAnimationFrame(animationRef.current)
+      }
     }
   }, [particleCount, colorVariant])
 
