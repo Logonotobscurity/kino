@@ -48,6 +48,8 @@ const nextConfig = {
   },
   // GitHub Pages configuration
   basePath: process.env.NODE_ENV === 'production' ? '/kino' : '',
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/kino' : '',
+  trailingSlash: true,
   output: 'export',
   distDir: 'out',
 }
