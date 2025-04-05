@@ -31,9 +31,10 @@ const nextConfig = {
     ],
   },
   experimental: {
-    webpackBuildWorker: true,
-    parallelServerBuildTraces: true,
-    parallelServerCompiles: true,
+    // Disable features that might cause issues with static export
+    webpackBuildWorker: false,
+    parallelServerBuildTraces: false,
+    parallelServerCompiles: false,
     optimizePackageImports: ['lucide-react'],
     swcMinify: true,
   },
@@ -52,6 +53,8 @@ const nextConfig = {
   trailingSlash: true,
   output: 'export',
   distDir: 'out',
+  skipMiddlewareUrlNormalize: true,
+  skipTrailingSlashRedirect: true,
 }
 
 if (userConfig) {
