@@ -20,7 +20,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: false,
+    unoptimized: true,
     dangerouslyAllowSVG: true,
     domains: ['localhost'],
     remotePatterns: [
@@ -46,6 +46,10 @@ const nextConfig = {
     maxInactiveAge: 60 * 1000,
     pagesBufferLength: 5,
   },
+  // GitHub Pages configuration
+  basePath: process.env.NODE_ENV === 'production' ? '/kino' : '',
+  output: 'export',
+  distDir: 'out',
 }
 
 if (userConfig) {

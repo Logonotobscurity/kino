@@ -3,6 +3,12 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export async function middleware(req: NextRequest) {
+  // Skip authentication for static export when in production
+  // GitHub Pages deployment uses static files
+  if (process.env.NODE_ENV === 'production') {
+    return NextResponse.next()
+  }
+  
   const res = NextResponse.next()
   
   // Create a Supabase client for the middleware
